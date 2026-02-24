@@ -86,12 +86,12 @@ def PROJECTION_CHOICES(bounding_box):
     )
     }
 
-def format_geoaxes(ax, xlabel_style = {'size': 9}, ylabel_style = {'size': 9}):
+def format_geoaxes(ax, crs=ccrs.PlateCarree(), xlabel_style = {'size': 9}, ylabel_style = {'size': 9}):
     ax.coastlines()
     ax.add_feature(cfeature.LAND, facecolor='lightgray')
     ax.add_feature(cfeature.BORDERS, linestyle=':')
 
-    gl = ax.gridlines(draw_labels=True, linestyle='--', alpha=0.5)
+    gl = ax.gridlines(draw_labels=True, linestyle='--', alpha=0.5, crs=crs)
     gl.top_labels = False
     gl.right_labels = False
     gl.left_labels = True
