@@ -20,7 +20,7 @@ START = '2025-03-01'
 END = '2025-03-21'
 
 ### OBJECTIVE MAPPING
-xcor_km, ycor_km = 300, 300
+xcor_km, ycor_km = 500, 500
 
 R = 6378.1 #Radius of earth
 
@@ -100,12 +100,24 @@ def format_geoaxes(ax, crs=ccrs.PlateCarree(), xlabel_style = {'size': 9}, ylabe
     gl.ylabel_style = ylabel_style
 
 def calculate_objective_map(ds, xcor_km=xcor_km, ycor_km=ycor_km, R=R, err=err, nx=100):
+    '''
+    Returns
+    ---
+    mp
+        map plot
+    ergrid
+        error grid
+    xg
+        x grid coords
+    yg
+        y grid coords
+    '''
 
     temperature = ds.where(ds.TEMP_QC == 1).TEMP
     lat = ds.LATITUDE
     lon = ds.LONGITUDE
 
-    temp_mean = temperature.mean(dim='N_LEVELS')
+    temp_mean = ds.TEMP.mean(dim='N_LEVELS')
 
     data = temp_mean.values
     x = lon.values
